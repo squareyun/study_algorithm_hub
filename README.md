@@ -31,6 +31,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |1011. Fly me to the Alpha Centauri|[링크](./%EB%B0%B1%EC%A4%80/Gold/1011.%E2%80%85Fly%E2%80%85me%E2%80%85to%E2%80%85the%E2%80%85Alpha%E2%80%85Centauri/Fly%E2%80%85me%E2%80%85to%E2%80%85the%E2%80%85Alpha%E2%80%85Centauri.java)|
+|12100. 2048 （Easy）|[링크](./%EB%B0%B1%EC%A4%80/Gold/12100.%E2%80%852048%E2%80%85%EF%BC%88Easy%EF%BC%89/README.md)|
 |1261. 알고스팟|[링크](./%EB%B0%B1%EC%A4%80/Gold/1261.%E2%80%85%EC%95%8C%EA%B3%A0%EC%8A%A4%ED%8C%9F/%EC%95%8C%EA%B3%A0%EC%8A%A4%ED%8C%9F.java)|
 |12865. 평범한 배낭|[링크](./%EB%B0%B1%EC%A4%80/Gold/12865.%E2%80%85%ED%8F%89%EB%B2%94%ED%95%9C%E2%80%85%EB%B0%B0%EB%82%AD/%ED%8F%89%EB%B2%94%ED%95%9C%E2%80%85%EB%B0%B0%EB%82%AD.java)|
 |1414. 불우이웃돕기|[링크](./%EB%B0%B1%EC%A4%80/Gold/1414.%E2%80%85%EB%B6%88%EC%9A%B0%EC%9D%B4%EC%9B%83%EB%8F%95%EA%B8%B0/%EB%B6%88%EC%9A%B0%EC%9D%B4%EC%9B%83%EB%8F%95%EA%B8%B0.java)|
