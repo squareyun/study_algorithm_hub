@@ -7,6 +7,10 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |0001-two-sum|[링크](./LeetCode/Easy/0001-two-sum/0001-two-sum.java)|
+### 🚀 Medium
+| 문제번호 | 링크 |
+| ----- | ----- |
+|0002-add-two-numbers|[링크](./LeetCode/Medium/0002-add-two-numbers/README.md)|
 ### 🚀 SWEA
 | 문제번호 | 링크 |
 | ----- | ----- |
