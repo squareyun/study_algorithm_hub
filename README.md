@@ -11,6 +11,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |0002-add-two-numbers|[링크](./LeetCode/Medium/0002-add-two-numbers/README.md)|
+|0130-surrounded-regions|[링크](./LeetCode/Medium/0130-surrounded-regions/README.md)|
 ### 🚀 SWEA
 | 문제번호 | 링크 |
 | ----- | ----- |
