@@ -12,6 +12,7 @@
 | ----- | ----- |
 |0002-add-two-numbers|[링크](./LeetCode/Medium/0002-add-two-numbers/README.md)|
 |0003-longest-substring-without-repeating-characters|[링크](./LeetCode/Medium/0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.java)|
+|0005-longest-palindromic-substring|[링크](./LeetCode/Medium/0005-longest-palindromic-substring/0005-longest-palindromic-substring.java)|
 |0130-surrounded-regions|[링크](./LeetCode/Medium/0130-surrounded-regions/README.md)|
 ### 🚀 SWEA
 | 문제번호 | 링크 |
