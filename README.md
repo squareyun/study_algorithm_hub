@@ -7,6 +7,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |0001-two-sum|[링크](./LeetCode/Easy/0001-two-sum/0001-two-sum.java)|
+|0013-roman-to-integer|[링크](./LeetCode/Easy/0013-roman-to-integer/0013-roman-to-integer.java)|
 ### 🚀 Medium
 | 문제번호 | 링크 |
 | ----- | ----- |
