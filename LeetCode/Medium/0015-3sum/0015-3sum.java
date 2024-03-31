@@ -8,7 +8,6 @@ class Solution {
         Arrays.sort(nums); // -4 -1 -1 0 1 2
         
         List<List<Integer>> ans = new ArrayList<>();
-        Set<List<Integer>> set = new HashSet<>();
         
         for (int i=0; i<nums.length; i++) {
             if (i>0 && nums[i] == nums[i-1]) continue; // 중복
@@ -26,10 +25,7 @@ class Solution {
                     right--;
                 } else if (sum == target) {
                     List<Integer> triplet = Arrays.asList(nums[i], nums[left], nums[right]);
-                    if (!set.contains(triplet)) {
-                        ans.add(triplet);
-                        set.add(triplet);
-                    }
+                    ans.add(triplet);
                     left++;
                     right--;
                     
