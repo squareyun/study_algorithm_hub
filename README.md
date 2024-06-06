@@ -49,6 +49,7 @@
 ### 🚀 Bronze
 | 문제번호 | 링크 |
 | ----- | ----- |
+|10430. 나머지|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10430.%E2%80%85%EB%82%98%EB%A8%B8%EC%A7%80/README.md)|
 |10818. 최소， 최대|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10818.%E2%80%85%EC%B5%9C%EC%86%8C%EF%BC%8C%E2%80%85%EC%B5%9C%EB%8C%80/README.md)|
 |1236. 성 지키기|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1236.%E2%80%85%EC%84%B1%E2%80%85%EC%A7%80%ED%82%A4%EA%B8%B0/README.md)|
 ### 🚀 Gold
