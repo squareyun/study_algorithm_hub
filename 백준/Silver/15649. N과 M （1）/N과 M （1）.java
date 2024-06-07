@@ -1,10 +1,9 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
 	static int N, M;
-	static int[] arr, brr;
+	static int[] brr;
 	static boolean[] v;
 	static StringBuilder sb = new StringBuilder();
 
@@ -13,13 +12,8 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		M = sc.nextInt();
-		arr = new int[N];
 		brr = new int[N];
 		v = new boolean[N];
-
-		for (int i = 0; i < N; i++) {
-			arr[i] = i + 1;
-		}
 
 		dfs(0);
 		System.out.println(sb);
@@ -38,7 +32,7 @@ public class Main {
 			if (v[i]) continue;
 
 			v[i] = true;
-			brr[cnt] = arr[i];
+			brr[cnt] = i + 1;
 			dfs(cnt + 1);
 			v[i] = false;
 		}
