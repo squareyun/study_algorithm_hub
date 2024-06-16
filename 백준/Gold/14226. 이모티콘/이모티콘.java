@@ -1,13 +1,15 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
-		Scanner sc = new Scanner(System.in);
-		int S = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int S = Integer.parseInt(br.readLine());
 
 		Queue<Emoticon> q = new ArrayDeque<>();
 		boolean[][] v = new boolean[1001][1001];
@@ -26,7 +28,8 @@ public class Main {
 			}
 
 			// 1. 클립보드 저장
-			q.offer(new Emoticon(screen, screen, cnt + 1));
+			if (screen != clipboard)
+				q.offer(new Emoticon(screen, screen, cnt + 1));
 
 			// 2. 클립보드 붙여넣기
 			if (screen + clipboard <= S && !v[screen + clipboard][clipboard]) {
