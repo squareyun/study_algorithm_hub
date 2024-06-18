@@ -1,28 +1,27 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
+	public static void main(String[] args) throws IOException {
 
-		int[] arr = new int[11];
-		arr[1] = 1;
-		arr[2] = 2;
-		arr[3] = 4;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
 
-		int sum = 3;
-		for (int i = 4; i <= 10; i++) {
-			sum += arr[i - 1];
-			arr[i] = sum;
-			sum -= arr[i - 3];
-		}
+		int[] dp = new int[11];
 
+		dp[1] = 1;
+		dp[2] = 2;
+		dp[3] = 4;
+		for (int i = 4; i < 11; i++)
+			dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+
+		int n;
 		StringBuilder sb = new StringBuilder();
 		while (T-- > 0) {
-			int n = sc.nextInt();
-			sb.append(arr[n]).append('\n');
+			n = Integer.parseInt(br.readLine());
+			sb.append(dp[n]).append("\n");
 		}
 		System.out.println(sb);
 	}
