@@ -1,73 +1,76 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
-	static class Node implements Comparable<Node> {
-		int x, y, cnt;
+	static int N, M;
+	static char[][] map;
+	static int[][] dist;
 
-		public Node(int x, int y, int cnt) {
-			super();
-			this.x = x;
-			this.y = y;
-			this.cnt = cnt;
+	static int[] dx = {1, 0, -1, 0};
+	static int[] dy = {0, 1, 0, -1};
+
+	public static void main(String[] args) throws IOException {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		M = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+
+		map = new char[N][M];
+		dist = new int[N][M];
+
+		for (int i = 0; i < N; i++) {
+			map[i] = br.readLine().toCharArray();
+			Arrays.fill(dist[i], Integer.MAX_VALUE);
 		}
 
-		@Override
-		public String toString() {
-			return "Node [x=" + x + ", y=" + y + ", cnt=" + cnt + "]";
-		}
-
-		@Override
-		public int compareTo(Node o) {
-			return Integer.compare(this.cnt, o.cnt);
-		}
-
+		dijkstra();
 	}
 
-	public static void main(String[] args) {
+	static void dijkstra() {
+		PriorityQueue<Data> pq = new PriorityQueue<>();
+		pq.offer(new Data(0, 0, 0));
+		dist[0][0] = 0;
 
-		Scanner sc = new Scanner(System.in);
-		int M = sc.nextInt();
-		int N = sc.nextInt();
-		int[][] map = new int[N][M];
-		int[] dx = new int[] { 0, 0, 1, -1 };
-		int[] dy = new int[] { 1, -1, 0, 0 };
-		for (int i = 0; i < N; i++) {
-			String s = sc.next();
-			for (int j = 0; j < M; j++) {
-				map[i][j] = s.charAt(j) - '0';
-			}
-		}
-
-		Queue<Node> pq = new PriorityQueue<>();
-		pq.offer(new Node(0, 0, 0));
-		map[0][0] = 2; // 방문 체크
-		
 		while (!pq.isEmpty()) {
-			Node cur = pq.poll();
+			Data cur = pq.poll();
 
-			if (cur.x == N - 1 && cur.y == M - 1) {
-				System.out.println(cur.cnt);
-				break;
+			if (cur.x == (N - 1) && cur.y == (M - 1)) {
+				System.out.println(cur.w);
+				return;
 			}
 
 			for (int d = 0; d < 4; d++) {
 				int nx = cur.x + dx[d];
 				int ny = cur.y + dy[d];
 
-				if (nx < 0 || nx >= N || ny < 0 || ny >= M)
-					continue;
+				if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
 
-				if (map[nx][ny] == 2)
-					continue;
-
-				pq.offer(new Node(nx, ny, cur.cnt + map[nx][ny]));
-				map[nx][ny] = 2;
+				if (dist[nx][ny] > dist[cur.x][cur.y] + (map[nx][ny] - '0')) {
+					dist[nx][ny] = dist[cur.x][cur.y] + (map[nx][ny] - '0');
+					pq.offer(new Data(nx, ny, dist[nx][ny]));
+				}
 			}
 		}
-
 	}
 
+	static class Data implements Comparable<Data> {
+		int x, y, w;
+
+		public Data(int x, int y, int w) {
+			this.x = x;
+			this.y = y;
+			this.w = w;
+		}
+
+		@Override
+		public int compareTo(Data o) {
+			return Integer.compare(this.w, o.w);
+		}
+	}
 }
