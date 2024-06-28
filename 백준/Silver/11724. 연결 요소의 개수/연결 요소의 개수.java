@@ -1,53 +1,43 @@
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
 	static int N, M;
-	static ArrayList<Integer>[] edges;
+	static List<Integer>[] adj;
 	static boolean[] v;
 
-	public static void main(String[] args) {
-
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		M = sc.nextInt();
-
-		edges = new ArrayList[N + 1];
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		adj = new ArrayList[N + 1];
+		v = new boolean[N + 1];
 		for (int i = 0; i <= N; i++) {
-			edges[i] = new ArrayList<>();
+			adj[i] = new ArrayList<>();
 		}
-
 		for (int i = 0; i < M; i++) {
-			int from = sc.nextInt();
-			int to = sc.nextInt();
-			edges[from].add(to);
-			edges[to].add(from);
+			st = new StringTokenizer(br.readLine());
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			adj[from].add(to);
+			adj[to].add(from);
 		}
 
 		int answer = 0;
-		v = new boolean[N + 1];
-
 		for (int i = 1; i <= N; i++) {
-			if (!v[i]) {
-				dfs(i);
-				answer++;
-			}
+			if (v[i]) continue;
+			dfs(i);
+			answer++;
 		}
-
 		System.out.println(answer);
 	}
 
-	static void dfs(int from) {
-		v[from] = true;
-
-		for (int i = 0; i < edges[from].size(); i++) {
-			int to = edges[from].get(i);
-			if (!v[to]) {
-				dfs(to);
-			}
-		}
+	static void dfs(int cur) {
+		v[cur]=true;
+		for (int next : adj[cur])
+			if(!v[next]) dfs(next);
 	}
+
 }
