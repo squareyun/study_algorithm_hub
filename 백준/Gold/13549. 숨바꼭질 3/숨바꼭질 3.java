@@ -1,56 +1,48 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-/**
- * https://www.acmicpc.net/problem/13549
- * 숨바꼭질 3
- * 0-1 BFS
- */
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	static int N, K;
+	final static int MAX_N_K = 100_000;
 
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int K = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
 
-		int[] dist = new int[100001];
+		int[] dist = new int[MAX_N_K + 1];
 		Arrays.fill(dist, Integer.MAX_VALUE);
 
-		Deque<Integer> q = new ArrayDeque<>();
+		ArrayDeque<Integer> q = new ArrayDeque<>();
 		q.offer(N);
 		dist[N] = 0;
 
 		while (!q.isEmpty()) {
-			int cur = q.pollFirst();
+			int cur = q.poll();
 
 			if (cur == K) {
 				System.out.println(dist[K]);
-				return;
+				break;
 			}
 
 			int next = cur * 2;
-			if (next <= 100000 && dist[next] > dist[cur]) {
+			if (next <= MAX_N_K && dist[next] > dist[cur]) {
 				dist[next] = dist[cur];
-				q.offerFirst(next);
+				q.addFirst(next);
+			}
+
+			next = cur + 1;
+			if (next <= MAX_N_K && dist[next] > dist[cur] + 1) {
+				dist[next] = dist[cur] + 1;
+				q.addLast(next);
 			}
 
 			next = cur - 1;
 			if (next >= 0 && dist[next] > dist[cur] + 1) {
 				dist[next] = dist[cur] + 1;
-				q.offerLast(next);
-			}
-
-			next = cur + 1;
-			if (next <= 100000 && dist[next] > dist[cur] + 1) {
-				dist[next] = dist[cur] + 1;
-				q.offerLast(next);
+				q.addLast(next);
 			}
 		}
 	}
