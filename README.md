@@ -59,6 +59,7 @@
 |21734. SMUPC의 등장|[링크](./%EB%B0%B1%EC%A4%80/Bronze/21734.%E2%80%85SMUPC%EC%9D%98%E2%80%85%EB%93%B1%EC%9E%A5/SMUPC%EC%9D%98%E2%80%85%EB%93%B1%EC%9E%A5.java)|
 |2309. 일곱 난쟁이|[링크](./%EB%B0%B1%EC%A4%80/Bronze/2309.%E2%80%85%EC%9D%BC%EA%B3%B1%E2%80%85%EB%82%9C%EC%9F%81%EC%9D%B4/%EC%9D%BC%EA%B3%B1%E2%80%85%EB%82%9C%EC%9F%81%EC%9D%B4.java)|
 |24389. 2의 보수|[링크](./%EB%B0%B1%EC%A4%80/Bronze/24389.%E2%80%852%EC%9D%98%E2%80%85%EB%B3%B4%EC%88%98/README.md)|
+|31800. Best Chance|[링크](./%EB%B0%B1%EC%A4%80/Bronze/31800.%E2%80%85Best%E2%80%85Chance/Best%E2%80%85Chance.java)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
 | ----- | ----- |
