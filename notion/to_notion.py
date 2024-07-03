@@ -191,13 +191,16 @@ def update_existing_page(page_id, data, headers):
             "object": "block",
             "type": "code",
             "code": {
-                "text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
+                "rich_text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
                 "language": data['language']
             }
         })
 
     response = requests.patch(append_url, headers=headers, json={"children": update_blocks})
     print(f"Updated Notion page {page_id} with status code {response.status_code}")
+
+    if response.status_code != 200:
+        print(f"Error updating page: {response.text}")
 
 def create_pages():
     headers = {
