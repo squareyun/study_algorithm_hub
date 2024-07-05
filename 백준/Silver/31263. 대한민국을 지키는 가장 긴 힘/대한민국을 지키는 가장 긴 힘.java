@@ -18,16 +18,18 @@ public class Main {
 		}
 
 
+
 		for (int i = 0; i < N; i++) {
-			if ((i + 3 == N) || (i + 3 < N && s.charAt(i + 3) != '0')) {
-				if (Integer.parseInt(s.substring(i, i + 3)) <= 641) {
-					i += 2;
-				}
+			if (i + 3 == N && Integer.parseInt(s.substring(i, i + 3)) <= 641) {
+				i += 2;
 			}
-			else if ((i + 2 == N) || (i + 2 < N && s.charAt(i + 2) != '0')) {
-				if (Integer.parseInt(s.substring(i, i + 2)) <= 641) {
-					i += 1;
-				}
+			if ((i + 3 < N && s.charAt(i + 3) != '0') && (Integer.parseInt(s.substring(i, i + 3)) <= 641)) {
+				// System.out.println(s.substring(i, i + 3));
+				i += 2;
+			}
+			else if ((i + 2 == N) || (i + 2 < N && s.charAt(i + 2) != '0') && (Integer.parseInt(s.substring(i, i + 2)) <= 641)) {
+				// System.out.println(s.substring(i, i + 2));
+				i += 1;
 			}
 			ans++;
 		}
