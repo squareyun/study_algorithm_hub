@@ -239,3 +239,45 @@ def create_pages():
                 
 
 create_pages()
+
+NOTION_API_KEY = os.environ['NOTION_API_KEY']
+NOTION_DATABASE_ID = os.environ['NOTION_DATABASE_ID']
+
+headers = {
+    "Authorization": "Bearer " + NOTION_API_KEY,
+    "Content-Type": "application/json",
+    "Notion-Version": "2022-06-28"
+}
+
+def get_pages():
+    url = f"https://api.notion.com/v1/databases/{NOTION_DATABASE_ID}/query"
+    response = requests.post(url, headers=headers)
+    return response.json()['results']
+
+def clean_page(page_id):
+    url = f"https://api.notion.com/v1/blocks/{page_id}/children"
+    response = requests.get(url, headers=headers)
+    blocks = response.json()['results']
+
+    keep_blocks = []
+    for block in blocks:
+        if block['type'] == 'heading_3':
+            content = block['heading_3']['rich_text'][0]['text']['content']
+            if content in ['성능 요약', '풀이']:
+                keep_blocks.append({"block_id": block['id']})
+                # Keep the next block (table or code)
+                if blocks.index(block) + 1 < len(blocks):
+                    keep_blocks.append({"block_id": blocks[blocks.index(block) + 1]['id']})
+
+    # Delete all blocks
+    requests.delete(url, headers=headers)
+
+    # Add back the kept blocks
+    requests.patch(url, headers=headers, json={"children": keep_blocks})
+
+pages = get_pages()
+for page in pages:
+    clean_page(page['id'])
+    print(f"Cleaned page: {page['properties']['Title']['title'][0]['text']['content']}")
+
+print("All pages have been cleaned.")
