@@ -3,7 +3,6 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import markdown2
-from datetime import datetime
 
 # Constants
 NOTION_API_KEY=os.environ['NOTION_API_KEY']
@@ -66,8 +65,7 @@ def parse_problem_details(markdown_file, answer_file):
         'memory': memory,
         'time': time,
         'language': language,
-        'answer': answer,
-        'date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 현재 날짜와 시간 추가
+        'answer': answer
     }
 
 
@@ -129,122 +127,122 @@ def find_existing_page(title, headers):
     return None
 
 def update_existing_page(page_id, data, headers):
-    # 기존 페이지의 내용을 가져옵니다
-    get_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
-    response = requests.get(get_url, headers=headers)
-    existing_blocks = response.json()['results']
+    append_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
+    update_blocks = []
 
-    # 새로운 블록을 준비합니다
-    new_blocks = [
-        {
-            "object": "block",
-            "type": "heading_3",
-            "heading_3": {
-                "rich_text": [{"type": "text", "text": {"content": f"성능 요약 (Update: {data['date']})"}}]
-            }
-        },
-        {
-            "object": "block",
-            "type": "table",
-            "table": {
-                "table_width": 2,
-                "has_column_header": True,
-                "has_row_header": False,
-                "children": [
-                    {
-                        "type": "table_row",
-                        "table_row": {
-                            "cells": [
-                                [{"type": "text", "text": {"content": "Memory"}}],
-                                [{"type": "text", "text": {"content": "Time"}}]
-                            ]
-                        }
-                    },
-                    {
-                        "type": "table_row",
-                        "table_row": {
-                            "cells": [
-                                [{"type": "text", "text": {"content": data['memory']}}],
-                                [{"type": "text", "text": {"content": data['time']}}]
-                            ]
-                        }
+    # Append new heading for performance summary
+    update_blocks.append({
+        "object": "block",
+        "type": "heading_3",
+        "heading_3": {
+            "rich_text": [{
+                "type": "text",
+                "text": {"content": "성능 요약(복습ver)"}
+            }]
+        }
+    })
+
+    # Append new performance table
+    update_blocks.append({
+        "object": "block",
+        "type": "table",
+        "table": {
+            "table_width": 2,
+            "has_column_header": True,
+            "has_row_header": False,
+            "children": [
+                {
+                    "type": "table_row",
+                    "table_row": {
+                        "cells": [
+                            [{"type": "text", "text": {"content": "Memory"}}],
+                            [{"type": "text", "text": {"content": "Time"}}]
+                        ]
                     }
-                ]
-            }
-        },
-        {
-            "object": "block",
-            "type": "heading_3",
-            "heading_3": {
-                "rich_text": [{"type": "text", "text": {"content": f"풀이 (Update: {data['date']})"}}]
-            }
-        },
-        {
+                },
+                {
+                    "type": "table_row",
+                    "table_row": {
+                        "cells": [
+                            [{"type": "text", "text": {"content": data['memory']}}], 
+                            [{"type": "text", "text": {"content": data['time']}}]
+                        ]
+                    }
+                }
+            ]
+        }
+    })
+
+    # Append new heading for the solution
+    update_blocks.append({
+        "object": "block",
+        "type": "heading_3",
+        "heading_3": {
+            "rich_text": [{
+                "type": "text",
+                "text": {"content": "답안(복습ver)"}
+            }]
+        }
+    })
+
+    # Append new code block for the solution
+    for i in range(0, len(data['answer']), 2000):
+        update_blocks.append({
             "object": "block",
             "type": "code",
             "code": {
-                "rich_text": [{"type": "text", "text": {"content": data['answer']}}],
+                "text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
                 "language": data['language']
             }
-        },
-        {
-            "object": "block",
-            "type": "divider",
-            "divider": {}
-        }
-    ]
+        })
 
-    # 새로운 블록을 기존 블록 앞에 추가합니다
-    updated_blocks = new_blocks + existing_blocks
-
-    # 페이지의 모든 블록을 삭제합니다
-    requests.delete(get_url, headers=headers)
-
-    # 업데이트된 블록을 다시 추가합니다
-    response = requests.patch(get_url, headers=headers, json={"children": updated_blocks})
+    response = requests.patch(append_url, headers=headers, json={"children": update_blocks})
     print(f"Updated Notion page {page_id} with status code {response.status_code}")
-
-    if response.status_code != 200:
-        print(f"Error updating page: {response.text}")
 
 def create_pages():
     headers = {
-        "Authorization": "Bearer " + NOTION_API_KEY,
-        "Content-Type": "application/json",
-        "Notion-Version": "2022-06-28"
-    }
+    "Authorization": "Bearer " + NOTION_API_KEY,
+    "Content-Type": "application/json",
+    "Notion-Version": "2022-06-28"
+}
 
     solved, problems = read_problems_file()
 
     for (root, directories, files) in os.walk("백준"):
         for d in directories:
             d_path = os.path.join(root, d)
-            readme, answer = "", ""
-            for i in os.listdir(d_path):
-                if i.endswith('.md'):
-                    readme = os.path.join(d_path, i)
-                elif i.endswith('.py') or i.endswith('.java'):
-                    answer = os.path.join(d_path, i)
+            if d_path not in solved:
+                readme, answer = "", ""
+                for i in os.listdir(d_path):
+                    if i.endswith('.md'):
+                        readme = os.path.join(d_path, i)
+                    elif i.endswith('.py') or i.endswith('.java'):
+                        answer = os.path.join(d_path, i)
+                
+                if not readme or not answer:
+                    continue
+                
+                # parse problem details
+                data = parse_problem_details(readme, answer)
+                
+                # 기존 페이지를 찾고 업데이트, 아니면 새 페이지 생성
+                page_id = find_existing_page(data['title'], headers)
 
-            if not readme or not answer:
-                continue
-
-            data = parse_problem_details(readme, answer)
-            page_id = find_existing_page(data['title'], headers)
-
-            if page_id:
-                update_existing_page(page_id, data, headers)
-            else:
-                json_data = json.dumps(create_database_page(data))
-                url = "https://api.notion.com/v1/pages"
-                response = requests.post(url, headers=headers, data=json_data)
-
-                if response.status_code == 200:
-                    print(f"Page for {d_path} created successfully.")
+                if page_id:
+                    update_existing_page(page_id, data, headers)
+                else:
+                    # create Notion page
+                    json_data = json.dumps(create_database_page(data))
+                    
+                    # add page to the database
+                    url = "https://api.notion.com/v1/pages"
+                    response = requests.post(url=url, headers=headers, data=json_data)
+                    print(response.status_code)
+                    
+                    # update problems file
                     solved.append(d_path)
                     problems['problems'] = solved
                     write_problems_file(problems)
-                else:
-                    print(f"Error creating page for {d_path}: {response.text}")
+                
 
 create_pages()
