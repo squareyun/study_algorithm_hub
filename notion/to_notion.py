@@ -3,6 +3,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import markdown2
+from datetime import datetime
 
 # Constants
 NOTION_API_KEY=os.environ['NOTION_API_KEY']
@@ -65,7 +66,8 @@ def parse_problem_details(markdown_file, answer_file):
         'memory': memory,
         'time': time,
         'language': language,
-        'answer': answer
+        'answer': answer,
+        'date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 현재 날짜와 시간 추가
     }
 
 
@@ -127,16 +129,18 @@ def find_existing_page(title, headers):
     return None
 
 def update_existing_page(page_id, data, headers):
-    append_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
-    update_blocks = [
+    # 기존 페이지의 내용을 가져옵니다
+    get_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
+    response = requests.get(get_url, headers=headers)
+    existing_blocks = response.json()['results']
+
+    # 새로운 블록을 준비합니다
+    new_blocks = [
         {
             "object": "block",
             "type": "heading_3",
             "heading_3": {
-                "rich_text": [{
-                    "type": "text",
-                    "text": {"content": "성능 요약(복습ver)"}
-                }]
+                "rich_text": [{"type": "text", "text": {"content": f"성능 요약 (Update: {data['date']})"}}]
             }
         },
         {
@@ -160,7 +164,7 @@ def update_existing_page(page_id, data, headers):
                         "type": "table_row",
                         "table_row": {
                             "cells": [
-                                [{"type": "text", "text": {"content": data['memory']}}], 
+                                [{"type": "text", "text": {"content": data['memory']}}],
                                 [{"type": "text", "text": {"content": data['time']}}]
                             ]
                         }
@@ -172,25 +176,32 @@ def update_existing_page(page_id, data, headers):
             "object": "block",
             "type": "heading_3",
             "heading_3": {
-                "rich_text": [{
-                    "type": "text",
-                    "text": {"content": "답안(복습ver)"}
-                }]
+                "rich_text": [{"type": "text", "text": {"content": f"풀이 (Update: {data['date']})"}}]
             }
-        }
-    ]
-
-    for i in range(0, len(data['answer']), 2000):
-        update_blocks.append({
+        },
+        {
             "object": "block",
             "type": "code",
             "code": {
-                "rich_text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
+                "rich_text": [{"type": "text", "text": {"content": data['answer']}}],
                 "language": data['language']
             }
-        })
+        },
+        {
+            "object": "block",
+            "type": "divider",
+            "divider": {}
+        }
+    ]
 
-    response = requests.patch(append_url, headers=headers, json={"children": update_blocks})
+    # 새로운 블록을 기존 블록 앞에 추가합니다
+    updated_blocks = new_blocks + existing_blocks
+
+    # 페이지의 모든 블록을 삭제합니다
+    requests.delete(get_url, headers=headers)
+
+    # 업데이트된 블록을 다시 추가합니다
+    response = requests.patch(get_url, headers=headers, json={"children": updated_blocks})
     print(f"Updated Notion page {page_id} with status code {response.status_code}")
 
     if response.status_code != 200:
@@ -236,48 +247,4 @@ def create_pages():
                 else:
                     print(f"Error creating page for {d_path}: {response.text}")
 
-                
-
 create_pages()
-
-NOTION_API_KEY = os.environ['NOTION_API_KEY']
-NOTION_DATABASE_ID = os.environ['NOTION_DATABASE_ID']
-
-headers = {
-    "Authorization": "Bearer " + NOTION_API_KEY,
-    "Content-Type": "application/json",
-    "Notion-Version": "2022-06-28"
-}
-
-def get_pages():
-    url = f"https://api.notion.com/v1/databases/{NOTION_DATABASE_ID}/query"
-    response = requests.post(url, headers=headers)
-    return response.json()['results']
-
-def clean_page(page_id):
-    url = f"https://api.notion.com/v1/blocks/{page_id}/children"
-    response = requests.get(url, headers=headers)
-    blocks = response.json()['results']
-
-    keep_blocks = []
-    for block in blocks:
-        if block['type'] == 'heading_3':
-            content = block['heading_3']['rich_text'][0]['text']['content']
-            if content in ['성능 요약', '풀이']:
-                keep_blocks.append({"block_id": block['id']})
-                # Keep the next block (table or code)
-                if blocks.index(block) + 1 < len(blocks):
-                    keep_blocks.append({"block_id": blocks[blocks.index(block) + 1]['id']})
-
-    # Delete all blocks
-    requests.delete(url, headers=headers)
-
-    # Add back the kept blocks
-    requests.patch(url, headers=headers, json={"children": keep_blocks})
-
-pages = get_pages()
-for page in pages:
-    clean_page(page['id'])
-    print(f"Cleaned page: {page['properties']['Title']['title'][0]['text']['content']}")
-
-print("All pages have been cleaned.")
