@@ -127,91 +127,59 @@ def find_existing_page(title, headers):
     return None
 
 def update_existing_page(page_id, data, headers):
-    # Notion에서는 페이지의 자식 블록에 접근할 수 있으므로, 페이지 ID로 자식 블록 추가
     append_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
-    update_blocks = []
-
-    update_blocks.append({
-        "object": "block",
-        "type": "heading_3",
-        "heading_3": {
-            "rich_text": [{
-                "type": "text",
-                "text": {"content": "성능 요약(복습ver)"}
-            }]
-        }
-    })
-
-    update_blocks.append({
-        "object": "block",
-        "type": "table",
-        "table": {
-            "table_width": 2,
-            "has_column_header": True,
-            "has_row_header": False,
-            "children": [
-                {
-                    "type": "table_row",
-                    "table_row": {
-                        "cells": [
-                            [{"type": "text", "text": {"content": "Memory"}}],
-                            [{"type": "text", "text": {"content": "Time"}}]
-                        ]
-                    }
-                },
-                {
-                    "type": "table_row",
-                    "table_row": {
-                        "cells": [
-                            [{"type": "text", "text": {"content": data['memory']}}], 
-                            [{"type": "text", "text": {"content": data['time']}}]
-                        ]
-                    }
-                }
-            ]
-        }
-    })
-
-    update_blocks.append({
-        "object": "block",
-        "type": "heading_3",
-        "heading_3": {
-            "rich_text": [{
-                "type": "text",
-                "text": {"content": "답안(복습ver)"}
-            }]
-        }
-    })
-
-    for i in range(0, len(data['answer']), 2000):
-        update_blocks.append({
+    update_blocks = [
+        {
             "object": "block",
-            "type": "code",
-            "code": {
-                "rich_text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
-                "language": data['language']
+            "type": "heading_3",
+            "heading_3": {
+                "rich_text": [{
+                    "type": "text",
+                    "text": {"content": "성능 요약(복습ver)"}
+                }]
             }
-        })
-
-    response = requests.post(append_url, headers=headers, json={"children": update_blocks})
-    print(f"Updated Notion page {page_id} with status code {response.status_code}")
-
-    if response.status_code != 200:
-        print(f"Error updating page: {response.text}")
-
-    # Append new heading for the solution
-    update_blocks.append({
-        "object": "block",
-        "type": "heading_3",
-        "heading_3": {
-            "rich_text": [{
-                "type": "text",
-                "text": {"content": "답안(복습ver)"}
-            }]
+        },
+        {
+            "object": "block",
+            "type": "table",
+            "table": {
+                "table_width": 2,
+                "has_column_header": True,
+                "has_row_header": False,
+                "children": [
+                    {
+                        "type": "table_row",
+                        "table_row": {
+                            "cells": [
+                                [{"type": "text", "text": {"content": "Memory"}}],
+                                [{"type": "text", "text": {"content": "Time"}}]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "table_row",
+                        "table_row": {
+                            "cells": [
+                                [{"type": "text", "text": {"content": data['memory']}}], 
+                                [{"type": "text", "text": {"content": data['time']}}]
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "object": "block",
+            "type": "heading_3",
+            "heading_3": {
+                "rich_text": [{
+                    "type": "text",
+                    "text": {"content": "답안(복습ver)"}
+                }]
+            }
         }
-    })
+    ]
 
-    # Append new code block for the solution
     for i in range(0, len(data['answer']), 2000):
         update_blocks.append({
             "object": "block",
@@ -240,34 +208,33 @@ def create_pages():
     for (root, directories, files) in os.walk("백준"):
         for d in directories:
             d_path = os.path.join(root, d)
-            if d_path not in solved:
-                readme, answer = "", ""
-                for i in os.listdir(d_path):
-                    if i.endswith('.md'):
-                        readme = os.path.join(d_path, i)
-                    elif i.endswith('.py') or i.endswith('.java'):
-                        answer = os.path.join(d_path, i)
+            readme, answer = "", ""
+            for i in os.listdir(d_path):
+                if i.endswith('.md'):
+                    readme = os.path.join(d_path, i)
+                elif i.endswith('.py') or i.endswith('.java'):
+                    answer = os.path.join(d_path, i)
 
-                if not readme or not answer:
-                    continue
+            if not readme or not answer:
+                continue
 
-                data = parse_problem_details(readme, answer)
-                page_id = find_existing_page(data['title'], headers)
+            data = parse_problem_details(readme, answer)
+            page_id = find_existing_page(data['title'], headers)
 
-                if page_id:
-                    update_existing_page(page_id, data, headers)
+            if page_id:
+                update_existing_page(page_id, data, headers)
+            else:
+                json_data = json.dumps(create_database_page(data))
+                url = "https://api.notion.com/v1/pages"
+                response = requests.post(url, headers=headers, data=json_data)
+
+                if response.status_code == 200:
+                    print(f"Page for {d_path} created successfully.")
+                    solved.append(d_path)
+                    problems['problems'] = solved
+                    write_problems_file(problems)
                 else:
-                    json_data = json.dumps(create_database_page(data))
-                    url = "https://api.notion.com/v1/pages"
-                    response = requests.post(url, headers=headers, data=json_data)
-
-                    if response.status_code == 200:
-                        print(f"Page for {d_path} created successfully.")
-                        solved.append(d_path)
-                        problems['problems'] = solved
-                        write_problems_file(problems)
-                    else:
-                        print(f"Error creating page for {d_path}: {response.text}")
+                    print(f"Error creating page for {d_path}: {response.text}")
 
                 
 
