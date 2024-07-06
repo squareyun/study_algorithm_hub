@@ -1,20 +1,19 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
+	static int S;
+	static boolean[][] v;
+
 	public static void main(String[] args) throws IOException {
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int S = Integer.parseInt(br.readLine());
+		S = Integer.parseInt(br.readLine());
 
-		Queue<Emoticon> q = new ArrayDeque<>();
-		boolean[][] v = new boolean[1001][1001];
+		v = new boolean[S + 1][S + 1];
+		Queue<Emoticon> q = new LinkedList<>();
 		q.offer(new Emoticon(1, 0, 0));
-		v[1][0] = true; // i: 화면에 출력된 이모티콘 개수, j: 클립보드에 복사된 이모티콘 개수
+		v[1][0] = true;
 
 		while (!q.isEmpty()) {
 			Emoticon cur = q.poll();
@@ -27,23 +26,21 @@ public class Main {
 				break;
 			}
 
-			// 1. 클립보드 저장
-			if (screen != clipboard)
+			if (screen != clipboard && !v[screen][screen]) {
+				v[screen][screen] = true;
 				q.offer(new Emoticon(screen, screen, cnt + 1));
-
-			// 2. 클립보드 붙여넣기
-			if (screen + clipboard <= S && !v[screen + clipboard][clipboard]) {
-				q.offer(new Emoticon(screen + clipboard, clipboard, cnt + 1));
-				v[screen + clipboard][clipboard] = true;
 			}
 
-			// 3. 하나 삭제
-			if (screen >= 1 && !v[screen - 1][clipboard]) {
-				q.offer(new Emoticon(screen - 1, clipboard, cnt + 1));
+			if (screen + clipboard <= S && !v[screen + clipboard][clipboard]) {
+				v[screen + clipboard][clipboard] = true;
+				q.offer(new Emoticon(screen + clipboard, clipboard, cnt + 1));
+			}
+
+			if (screen > 1 && !v[screen - 1][clipboard]) {
 				v[screen - 1][clipboard] = true;
+				q.offer(new Emoticon(screen - 1, clipboard, cnt + 1));
 			}
 		}
-
 	}
 
 	static class Emoticon {
