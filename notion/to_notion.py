@@ -191,20 +191,24 @@ def update_existing_page(page_id, data, headers):
             "object": "block",
             "type": "code",
             "code": {
-                "text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
+                "rich_text": [{"type": "text", "text": {"content": data['answer'][i:i+2000]}}],
                 "language": data['language']
             }
         })
 
-    response = requests.patch(append_url, headers=headers, json={"children": update_blocks})
+    # Use POST to append children
+    response = requests.post(append_url, headers=headers, json={"children": update_blocks})
     print(f"Updated Notion page {page_id} with status code {response.status_code}")
+
+    if response.status_code != 200:
+        print(f"Error updating page: {response.text}")
 
 def create_pages():
     headers = {
-    "Authorization": "Bearer " + NOTION_API_KEY,
-    "Content-Type": "application/json",
-    "Notion-Version": "2022-06-28"
-}
+        "Authorization": "Bearer " + NOTION_API_KEY,
+        "Content-Type": "application/json",
+        "Notion-Version": "2022-06-28"
+    }
 
     solved, problems = read_problems_file()
 
@@ -218,31 +222,33 @@ def create_pages():
                         readme = os.path.join(d_path, i)
                     elif i.endswith('.py') or i.endswith('.java'):
                         answer = os.path.join(d_path, i)
-                
+
                 if not readme or not answer:
                     continue
-                
-                # parse problem details
+
+                # Parse problem details
                 data = parse_problem_details(readme, answer)
-                
-                # 기존 페이지를 찾고 업데이트, 아니면 새 페이지 생성
+
+                # Find existing page and update, or create new page
                 page_id = find_existing_page(data['title'], headers)
 
                 if page_id:
                     update_existing_page(page_id, data, headers)
                 else:
-                    # create Notion page
+                    # Create Notion page
                     json_data = json.dumps(create_database_page(data))
                     
-                    # add page to the database
+                    # Add page to the database
                     url = "https://api.notion.com/v1/pages"
-                    response = requests.post(url=url, headers=headers, data=json_data)
-                    print(response.status_code)
-                    
-                    # update problems file
-                    solved.append(d_path)
-                    problems['problems'] = solved
-                    write_problems_file(problems)
+                    response = requests.post(url, headers=headers, data=json_data)
+
+                    if response.status_code == 200:
+                        print(f"Page for {d_path} created successfully.")
+                        solved.append(d_path)
+                        problems['problems'] = solved
+                        write_problems_file(problems)
+                    else:
+                        print(f"Error creating page for {d_path}: {response.text}")
                 
 
 create_pages()
