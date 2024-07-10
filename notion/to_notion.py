@@ -127,7 +127,16 @@ def find_existing_page(title, headers):
     return None
 
 def update_existing_page(page_id, data, headers):
-    append_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
+    # Retrieve existing children blocks
+    retrieve_url = f"https://api.notion.com/v1/blocks/{page_id}/children"
+    response = requests.get(retrieve_url, headers=headers)
+    
+    if response.status_code == 200:
+        existing_blocks = response.json()['results']
+    else:
+        print(f"Error retrieving page children: {response.text}")
+        return
+
     update_blocks = []
 
     # Append new heading for performance summary
@@ -196,12 +205,13 @@ def update_existing_page(page_id, data, headers):
             }
         })
 
-    # Use POST to append children
-    response = requests.post(append_url, headers=headers, json={"children": update_blocks})
+    # Use PATCH to append children
+    response = requests.patch(f"https://api.notion.com/v1/blocks/{page_id}/children", headers=headers, json={"children": update_blocks})
     print(f"Updated Notion page {page_id} with status code {response.status_code}")
 
     if response.status_code != 200:
         print(f"Error updating page: {response.text}")
+
 
 def create_pages():
     headers = {
@@ -215,40 +225,38 @@ def create_pages():
     for (root, directories, files) in os.walk("백준"):
         for d in directories:
             d_path = os.path.join(root, d)
-            if d_path not in solved:
-                readme, answer = "", ""
-                for i in os.listdir(d_path):
-                    if i.endswith('.md'):
-                        readme = os.path.join(d_path, i)
-                    elif i.endswith('.py') or i.endswith('.java'):
-                        answer = os.path.join(d_path, i)
+            readme, answer = "", ""
+            for i in os.listdir(d_path):
+                if i.endswith('.md'):
+                    readme = os.path.join(d_path, i)
+                elif i.endswith('.py') or i.endswith('.java'):
+                    answer = os.path.join(d_path, i)
 
-                if not readme or not answer:
-                    continue
+            if not readme or not answer:
+                continue
 
-                # Parse problem details
-                data = parse_problem_details(readme, answer)
+            # Parse problem details
+            data = parse_problem_details(readme, answer)
 
-                # Find existing page and update, or create new page
-                page_id = find_existing_page(data['title'], headers)
+            # Find existing page and update, or create new page
+            page_id = find_existing_page(data['title'], headers)
 
-                if page_id:
-                    update_existing_page(page_id, data, headers)
-                else:
-                    # Create Notion page
-                    json_data = json.dumps(create_database_page(data))
-                    
-                    # Add page to the database
-                    url = "https://api.notion.com/v1/pages"
-                    response = requests.post(url, headers=headers, data=json_data)
-
-                    if response.status_code == 200:
-                        print(f"Page for {d_path} created successfully.")
-                        solved.append(d_path)
-                        problems['problems'] = solved
-                        write_problems_file(problems)
-                    else:
-                        print(f"Error creating page for {d_path}: {response.text}")
+            if page_id:
+                update_existing_page(page_id, data, headers)
+            else:
+                # Create Notion page
+                json_data = json.dumps(create_database_page(data))
                 
+                # Add page to the database
+                url = "https://api.notion.com/v1/pages"
+                response = requests.post(url, headers=headers, data=json_data)
+
+                if response.status_code == 200:
+                    print(f"Page for {d_path} created successfully.")
+                    solved.append(d_path)
+                    problems['problems'] = solved
+                    write_problems_file(problems)
+                else:
+                    print(f"Error creating page for {d_path}: {response.text}")
 
 create_pages()
