@@ -15,14 +15,14 @@ public class Main {
 		}
 		Arrays.sort(arr);
 
-		int start = 0, end = 0;
+		int left = 0, right = 0;
 		int answer = 4;
-		while (end < N) {
-			if (arr[end] - arr[start] < 5) {
-				answer = Math.min(answer, 5 - (end - start + 1));
-				end++;
+		while (right < N) {
+			if (arr[right] - arr[left] < 5) {
+				answer = Math.min(answer, 5 - (right - left + 1));
+				right++;
 			} else {
-				start++;
+				left++;
 			}
 		}
 		System.out.println(answer);
