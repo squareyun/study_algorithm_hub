@@ -8,54 +8,60 @@ public class Main {
 	static boolean[] v, color;
 
 	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		K = Integer.parseInt(br.readLine());
-		StringTokenizer st;
-
+		StringBuilder sb = new StringBuilder();
 		while (K-- > 0) {
-			st = new StringTokenizer(br.readLine());
+			StringTokenizer st = new StringTokenizer(br.readLine());
 			V = Integer.parseInt(st.nextToken());
 			E = Integer.parseInt(st.nextToken());
-			adj = new ArrayList[V + 1];
-			v = new boolean[V + 1];
-			color = new boolean[V + 1];
-			for (int i = 0; i <= V; i++) {
-				adj[i] = new ArrayList<>();
-			}
+			init();
+			int a, b;
 			for (int i = 0; i < E; i++) {
 				st = new StringTokenizer(br.readLine());
-				int from = Integer.parseInt(st.nextToken());
-				int to = Integer.parseInt(st.nextToken());
-				adj[from].add(to);
-				adj[to].add(from);
+				a = Integer.parseInt(st.nextToken());
+				b = Integer.parseInt(st.nextToken());
+				adj[a].add(b);
+				adj[b].add(a);
 			}
 
-			boolean isBipartite = true;
+			boolean answer = true;
 			for (int i = 1; i <= V; i++) {
-				if (v[i]) continue;
-				v[i] = true;
-				boolean ret = dfs(i);
-				if (!ret) {
-					isBipartite = false;
-					break;
+				if (!v[i]) {
+					v[i] = true;
+					boolean res = isBipartite(i);
+					if (!res) {
+						answer = false;
+						break;
+					}
 				}
 			}
-			System.out.println(isBipartite ? "YES" : "NO");
+			sb.append(answer ? "YES" : "NO").append('\n');
 		}
+		System.out.println(sb);
 	}
 
-	private static boolean dfs(int cur) {
+	static boolean isBipartite(int cur) {
 		for (int next : adj[cur]) {
 			if (!v[next]) {
 				v[next] = true;
 				color[next] = !color[cur];
-				boolean ret = dfs(next);
-				if (!ret) return false;
-			} else if (color[cur] == color[next]) {
+				boolean res = isBipartite(next);
+				if (!res) return false;
+			} else if (color[next] == color[cur]) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	static void init() {
+		adj = new ArrayList[V + 1];
+		for (int i = 0; i <= V; i++) {
+			adj[i] = new ArrayList<>();
+		}
+		v = new boolean[V + 1];
+		color = new boolean[V + 1];
+	}
 }
