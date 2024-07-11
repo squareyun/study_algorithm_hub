@@ -1,30 +1,36 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	static int N, K;
+	static int[] W, V;
+	static int[][] dp;
 
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int K = sc.nextInt();
-		int[] weights = new int[N + 1];
-		int[] values = new int[N + 1];
+	public static void main(String[] args) throws IOException {
 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		W = new int[N + 1];
+		V = new int[N + 1];
 		for (int i = 1; i <= N; i++) {
-			weights[i] = sc.nextInt();
-			values[i] = sc.nextInt();
+			st = new StringTokenizer(br.readLine());
+			W[i] = Integer.parseInt(st.nextToken());
+			V[i] = Integer.parseInt(st.nextToken());
 		}
 
-		int[][] dp = new int[N + 1][K + 1];
+		dp = new int[N + 1][K + 1];
+
 		for (int i = 1; i <= N; i++) {
 			for (int w = 1; w <= K; w++) {
-				if (weights[i] > w)
+				if (w - W[i] < 0)
 					dp[i][w] = dp[i - 1][w];
 				else
-					dp[i][w] = Math.max(dp[i - 1][w], values[i] + dp[i - 1][w - weights[i]]);
+					dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - W[i]] + V[i]);
 			}
 		}
 		System.out.println(dp[N][K]);
 	}
-
 }
