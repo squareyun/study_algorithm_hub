@@ -4,46 +4,44 @@ import java.io.*;
 public class Main {
 
 	static int N, K;
-	final static int MAX_N_K = 100_000;
 
 	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 
-		int[] dist = new int[MAX_N_K + 1];
-		Arrays.fill(dist, Integer.MAX_VALUE);
-
-		ArrayDeque<Integer> q = new ArrayDeque<>();
-		q.offer(N);
-		dist[N] = 0;
+		ArrayDeque<int[]> q = new ArrayDeque<>();
+		boolean[] v = new boolean[100_001];
+		q.offer(new int[] {N, 0});
+		v[N] = true;
 
 		while (!q.isEmpty()) {
-			int cur = q.poll();
+			int[] data = q.poll();
+			int cur = data[0];
+			int cnt = data[1];
 
 			if (cur == K) {
-				System.out.println(dist[K]);
+				System.out.println(cnt);
 				break;
 			}
 
-			int next = cur * 2;
-			if (next <= MAX_N_K && dist[next] > dist[cur]) {
-				dist[next] = dist[cur];
-				q.addFirst(next);
+			if (cur * 2 <= K + 2 && !v[cur * 2]) {
+				v[cur * 2] = true;
+				q.offerFirst(new int[] {cur * 2, cnt});
 			}
 
-			next = cur + 1;
-			if (next <= MAX_N_K && dist[next] > dist[cur] + 1) {
-				dist[next] = dist[cur] + 1;
-				q.addLast(next);
+			if (cur - 1 >= 0 && !v[cur - 1]) {
+				v[cur - 1] = true;
+				q.offerLast(new int[] {cur - 1, cnt + 1});
 			}
 
-			next = cur - 1;
-			if (next >= 0 && dist[next] > dist[cur] + 1) {
-				dist[next] = dist[cur] + 1;
-				q.addLast(next);
+			if (cur + 1 <= K && !v[cur + 1]) {
+				v[cur + 1] = true;
+				q.offerLast(new int[] {cur + 1, cnt + 1});
 			}
+
 		}
 	}
 }
