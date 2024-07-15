@@ -1,15 +1,11 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
 	static int N, M;
-	static ArrayList<Integer>[] adjList;
+	static List<Integer>[] adj;
 	static boolean[] v;
-	static int answer;
 
 	public static void main(String[] args) throws IOException {
 
@@ -17,41 +13,42 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-
-		adjList = new ArrayList[N];
-		for (int i = 0; i < N; i++) {
-			adjList[i] = new ArrayList<Integer>();
-		}
+		adj = new ArrayList[N];
 		v = new boolean[N];
-
-		int a, b;
-		while (M-- > 0) {
-			st = new StringTokenizer(br.readLine());
-			a = Integer.parseInt(st.nextToken());
-			b = Integer.parseInt(st.nextToken());
-			adjList[a].add(b);
-			adjList[b].add(a);
-		}
-
 		for (int i = 0; i < N; i++) {
-			if (answer != 1) dfs(i, 0);
+			adj[i] = new ArrayList<>();
+		}
+		int from, to;
+		for (int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine());
+			from = Integer.parseInt(st.nextToken());
+			to = Integer.parseInt(st.nextToken());
+			adj[from].add(to);
+			adj[to].add(from);
 		}
 
-		System.out.println(answer);
+		boolean res = false;
+		for (int i = 0; i < N; i++) {
+			v[i] = true;
+			res = dfs(i, 1);
+			if (res) break;
+			v[i] = false;
+		}
+		System.out.println(res ? 1 : 0);
 	}
 
-	static void dfs(int start, int depth) {
-		if (depth == 4) {
-			answer = 1;
-			return;
+	static boolean dfs(int cur, int cnt) {
+		if (cnt == 5)
+			return true;
+
+		for (int i : adj[cur]) {
+			if (v[i]) continue;
+			v[i] = true;
+			boolean res = dfs(i, cnt + 1);
+			if (res) return true;
+			v[i] = false;
 		}
 
-		v[start] = true;
-		for (int next : adjList[start]) {
-			if (v[next])
-				continue;
-			dfs(next, depth + 1);
-		}
-		v[start] = false;
+		return false;
 	}
 }
