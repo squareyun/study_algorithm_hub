@@ -138,6 +138,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |1010. 다리 놓기|[링크](./%EB%B0%B1%EC%A4%80/Silver/1010.%E2%80%85%EB%8B%A4%EB%A6%AC%E2%80%85%EB%86%93%EA%B8%B0/README.md)|
+|1072. 게임|[링크](./%EB%B0%B1%EC%A4%80/Silver/1072.%E2%80%85%EA%B2%8C%EC%9E%84/README.md)|
 |10819. 차이를 최대로|[링크](./%EB%B0%B1%EC%A4%80/Silver/10819.%E2%80%85%EC%B0%A8%EC%9D%B4%EB%A5%BC%E2%80%85%EC%B5%9C%EB%8C%80%EB%A1%9C/README.md)|
 |10845. 큐|[링크](./%EB%B0%B1%EC%A4%80/Silver/10845.%E2%80%85%ED%81%90/README.md)|
 |10866. 덱|[링크](./%EB%B0%B1%EC%A4%80/Silver/10866.%E2%80%85%EB%8D%B1/README.md)|
