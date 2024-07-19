@@ -25,6 +25,7 @@
 |0039-combination-sum|[링크](./LeetCode/Medium/0039-combination-sum/0039-combination-sum.java)|
 |0079-word-search|[링크](./LeetCode/Medium/0079-word-search/0079-word-search.java)|
 |0130-surrounded-regions|[링크](./LeetCode/Medium/0130-surrounded-regions/0130-surrounded-regions.java)|
+|0886-possible-bipartition|[링크](./LeetCode/Medium/0886-possible-bipartition/0886-possible-bipartition.java)|
 ### 🚀 SWEA
 | 문제번호 | 링크 |
 | ----- | ----- |
