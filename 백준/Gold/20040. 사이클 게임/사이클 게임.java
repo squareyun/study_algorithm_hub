@@ -3,58 +3,44 @@ import java.io.*;
 
 public class Main {
 
-	static int N, M;
-	static int[] p;
-	static int[] size;
+	static int n, m;
+	static int[] parent;
 
 	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		p = new int[N];
-		size = new int[N];
-		for (int i = 0; i < N; i++) {
-			p[i] = i;
-			size[i] = 1;
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		parent = new int[n];
+		for (int i = 0; i < n; i++) {
+			parent[i] = i;
 		}
-
-		for (int i = 1; i <= M; i++) {
+		int a, b;
+		for (int i = 1; i <= m; i++) {
 			st = new StringTokenizer(br.readLine());
-			int x = Integer.parseInt(st.nextToken());
-			int y = Integer.parseInt(st.nextToken());
-
-			if (find(x) == find(y)) {
+			a = Integer.parseInt(st.nextToken());
+			b = Integer.parseInt(st.nextToken());
+			if (find(a) == find(b)) {
 				System.out.println(i);
 				return;
 			}
-
-			union(x, y);
+			union(a, b);
 		}
-
 		System.out.println(0);
-
 	}
 
 	static void union(int a, int b) {
 		int rootA = find(a);
 		int rootB = find(b);
 
-		if (rootA == rootB) return;
-
-		if (size[rootA] <= size[rootB]) {
-			p[rootA] = rootB;
-			size[rootB] += size[rootA];
-		} else {
-			p[rootB] = rootA;
-			size[rootA] += size[rootB];
-		}
+		parent[rootB] = rootA;
 	}
 
-	static int find(int a) {
-		if (p[a] == a)
-			return a;
+	static int find(int x) {
+		if (parent[x] == x)
+			return x;
 
-		return p[a] = find(p[a]);
+		return parent[x] = find(parent[x]);
 	}
 }
