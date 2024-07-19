@@ -5,6 +5,7 @@ public class Main {
 
 	static int n, m;
 	static int[] parent;
+	static int[] size;
 
 	public static void main(String[] args) throws IOException {
 
@@ -13,6 +14,7 @@ public class Main {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		parent = new int[n];
+		size = new int[n];
 		for (int i = 0; i < n; i++) {
 			parent[i] = i;
 		}
@@ -34,7 +36,15 @@ public class Main {
 		int rootA = find(a);
 		int rootB = find(b);
 
-		parent[rootB] = rootA;
+		if (rootA == rootB) return;
+
+		if (size[rootA] > size[rootB]) {
+			size[rootA] += size[rootB];
+			parent[rootA] = rootB;
+		} else {
+			size[rootB] += size[rootA];
+			parent[rootB] = rootA;
+		}
 	}
 
 	static int find(int x) {
