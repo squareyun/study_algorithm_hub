@@ -7,6 +7,7 @@ public class Main {
 	static int[] arr;
 
 	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		arr = new int[N];
@@ -15,8 +16,8 @@ public class Main {
 		}
 		Arrays.sort(arr);
 
-		int left = 0, right = 0;
 		int answer = 4;
+		int left = 0, right = 0;
 		while (right < N) {
 			if (arr[right] - arr[left] < 5) {
 				answer = Math.min(answer, 5 - (right - left + 1));
