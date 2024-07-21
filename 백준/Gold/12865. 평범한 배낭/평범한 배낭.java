@@ -5,7 +5,6 @@ public class Main {
 
 	static int N, K;
 	static int[] W, V;
-	static int[][] dp;
 
 	public static void main(String[] args) throws IOException {
 
@@ -21,16 +20,12 @@ public class Main {
 			V[i] = Integer.parseInt(st.nextToken());
 		}
 
-		dp = new int[N + 1][K + 1];
-
+		int[] dp = new int[K + 1];
 		for (int i = 1; i <= N; i++) {
-			for (int w = 1; w <= K; w++) {
-				if (w - W[i] < 0)
-					dp[i][w] = dp[i - 1][w];
-				else
-					dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - W[i]] + V[i]);
+			for (int w = K; w - W[i] >= 0; w--) {
+				dp[w] = Math.max(dp[w], dp[w - W[i]] + V[i]);
 			}
 		}
-		System.out.println(dp[N][K]);
+		System.out.println(dp[K]);
 	}
 }
