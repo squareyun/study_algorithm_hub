@@ -4,7 +4,6 @@ import java.io.*;
 public class Main {
 
 	static int N, M;
-	static List<Edge> edges = new ArrayList<>();
 	static int[] parent;
 
 	public static void main(String[] args) throws IOException {
@@ -13,13 +12,18 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		int from, to, w;
+		parent = new int[N + 1];
+		for (int i = 0; i <= N; i++)
+			parent[i] = i;
+
+		PriorityQueue<Data> pq = new PriorityQueue<>();
+		int a, b, c;
 		for (int i = 0; i < M; i++) {
 			st = new StringTokenizer(br.readLine());
-			from = Integer.parseInt(st.nextToken());
-			to = Integer.parseInt(st.nextToken());
-			w = Integer.parseInt(st.nextToken());
-			edges.add(new Edge(from, to, w));
+			a = Integer.parseInt(st.nextToken());
+			b = Integer.parseInt(st.nextToken());
+			c = Integer.parseInt(st.nextToken());
+			pq.offer(new Data(a, b, c));
 		}
 
 		if (N == 2) {
@@ -27,50 +31,49 @@ public class Main {
 			return;
 		}
 
-		parent = new int[N + 1];
-		for (int i = 1; i <= N; i++) {
-			parent[i] = i;
+		int nodeCnt = 0;
+		int answer = 0;
+		while (!pq.isEmpty()) {
+			Data cur = pq.poll();
+
+			if (find(cur.a) == find(cur.b)) continue;
+
+			union(cur.a, cur.b);
+			answer += cur.c;
+			if (++nodeCnt == (N - 2))
+				break;
 		}
 
-		Collections.sort(edges);
+		System.out.println(answer);
 
-		int totalCost = 0;
-		int cnt = 0;
-		for (Edge e : edges) {
-			if (find(e.from) != find(e.to)) {
-				union(e.from, e.to);
-				totalCost += e.w;
-				if (++cnt == N - 2) break;
-			}
+	}
+
+	static class Data implements Comparable<Data> {
+		int a, b, c;
+
+		public Data(int a, int b, int c) {
+			this.a = a;
+			this.b = b;
+			this.c = c;
 		}
-		System.out.println(totalCost);
+
+		@Override
+		public int compareTo(Data o) {
+			return Integer.compare(this.c, o.c);
+		}
 	}
 
 	static void union(int a, int b) {
 		int rootA = find(a);
 		int rootB = find(b);
-
-		if (rootA == rootB) return;
-		parent[rootB] = parent[rootA];
+		if (rootA == rootB)
+			return;
+		parent[rootA] = rootB;
 	}
 
-	static int find(int a) {
-		if (parent[a] == a) return a;
-		return parent[a] = find(parent[a]);
-	}
-
-	static class Edge implements Comparable<Edge> {
-		int from, to, w;
-
-		public Edge(int from, int to, int w) {
-			this.from = from;
-			this.to = to;
-			this.w = w;
-		}
-
-		@Override
-		public int compareTo(Edge o) {
-			return Integer.compare(this.w, o.w);
-		}
+	static int find(int x) {
+		if (parent[x] == x)
+			return x;
+		return parent[x] = find(parent[x]);
 	}
 }
