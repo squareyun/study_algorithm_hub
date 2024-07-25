@@ -10,6 +10,7 @@
 |0013-roman-to-integer|[링크](./LeetCode/Easy/0013-roman-to-integer/0013-roman-to-integer.java)|
 |0014-longest-common-prefix|[링크](./LeetCode/Easy/0014-longest-common-prefix/0014-longest-common-prefix.java)|
 |0021-merge-two-sorted-lists|[링크](./LeetCode/Easy/0021-merge-two-sorted-lists/0021-merge-two-sorted-lists.java)|
+|0058-length-of-last-word|[링크](./LeetCode/Easy/0058-length-of-last-word/0058-length-of-last-word.java)|
 ### 🚀 Medium
 | 문제번호 | 링크 |
 | ----- | ----- |
