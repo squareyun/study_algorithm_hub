@@ -12,33 +12,40 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		A = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-		B = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+		A = new int[N];
+		B = new int[M];
+
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < N; i++) {
+			A[i] = Integer.parseInt(st.nextToken());
+		}
+
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < M; i++) {
+			B[i] = Integer.parseInt(st.nextToken());
+		}
 
 		int len = N + M;
 		int[] ret = new int[len];
 		int idx = 0, aPointer = 0, bPointer = 0;
-		while (idx < len && aPointer < N && bPointer < M) {
+		while (aPointer < N && bPointer < M) {
 			if (A[aPointer] < B[bPointer])
 				ret[idx++] = A[aPointer++];
 			else
 				ret[idx++] = B[bPointer++];
 		}
 
-		if (idx != len) {
-			if (aPointer == N) {
-				while (bPointer < M)
-					ret[idx++] = B[bPointer++];
-			} else if (bPointer == M) {
-				while (aPointer < N) {
-					ret[idx++] = A[aPointer++];
-				}
-			}
-		}
+		while (aPointer < N)
+			ret[idx++] = A[aPointer++];
+		while (bPointer < M)
+			ret[idx++] = B[bPointer++];
 
 		StringBuilder sb = new StringBuilder();
-		for (int i : ret)
-			sb.append(i).append(" ");
+		for (int i = 0; i < len; i++) {
+			sb.append(ret[i]);
+			if (i < len - 1) sb.append(" ");
+		}
 		System.out.println(sb);
 	}
 
