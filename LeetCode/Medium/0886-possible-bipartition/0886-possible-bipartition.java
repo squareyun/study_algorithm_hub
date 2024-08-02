@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public boolean possibleBipartition(int n, int[][] dislikes) {
-        ArrayList<Integer>[] adj = new ArrayList[n+1];
+        List<Integer>[] adj = new ArrayList[n + 1];
         for (int i=0; i<=n; i++) {
             adj[i] = new ArrayList<>();
         }
@@ -13,25 +13,23 @@ class Solution {
 
         boolean[] v = new boolean[n + 1];
         boolean[] color = new boolean[n + 1];
-        for (int i=0; i<n; i++) {
+
+        for (int i=1; i<=n; i++) {
             if (!v[i]) {
                 v[i] = true;
-                boolean res = bipartition(i, adj, v, color);
-                if (!res) return false;
+                if (!dfs(i, adj, v, color)) return false;
             }
         }
         return true;
     }
 
-    private boolean bipartition(int cur, ArrayList<Integer>[] adj, boolean[] v, boolean[] color) {
-
+    private boolean dfs(int cur, List<Integer>[] adj, boolean[] v, boolean[] color) {
         for (int i : adj[cur]) {
-            if (v[i] && color[i] == color[cur]) return false;
+            if (v[i] && color[cur] == color[i]) return false;
             if (!v[i]) {
-                v[cur] = true;
+                v[i] = true;
                 color[i] = !color[cur];
-                boolean res = bipartition(i, adj, v, color);
-                if (!res) return false;
+                if (!dfs(i, adj, v, color)) return false;
             }
         }
         return true;
