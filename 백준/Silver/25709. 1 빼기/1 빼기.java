@@ -1,56 +1,32 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
 
-		if (N == 0) {
-			System.out.println(0);
-			return;
-		}
+	static String N;
 
-		Queue<Integer> queue = new LinkedList<>();
-		Set<Integer> visited = new HashSet<>();
+	public static void main(String[] args) throws IOException {
 
-		queue.add(N);
-		visited.add(N);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = br.readLine();
 
-		int steps = 0;
-
-		while (!queue.isEmpty()) {
-			int size = queue.size();
-			for (int i = 0; i < size; i++) {
-				int num = queue.poll();
-
-				if (num == 0) {
-					System.out.println(steps);
-					return;
-				}
-
-				// 1을 뺀다
-				if (!visited.contains(num - 1)) {
-					queue.add(num - 1);
-					visited.add(num - 1);
-				}
-
-				// 1을 지운다
-				String strNum = String.valueOf(num);
-				for (int j = 0; j < strNum.length(); j++) {
-					if (strNum.charAt(j) == '1') {
-						String newNumStr = strNum.substring(0, j) + strNum.substring(j + 1);
-						if (newNumStr.isEmpty()) {
-							newNumStr = "0";
-						}
-						int newNum = Integer.parseInt(newNumStr);
-						if (!visited.contains(newNum)) {
-							queue.add(newNum);
-							visited.add(newNum);
-						}
-					}
+		int ans = 0;
+		while (!N.equals("0")) {
+			boolean flag = false;
+			for (int i = 0; i < N.length(); i++) {
+				if (N.length() > 1 && N.charAt(i) == '1') {
+					N = N.substring(0, i).concat(N.substring(i + 1));
+					N = String.valueOf(Integer.parseInt(N));
+					flag = true;
+					break;
 				}
 			}
-			steps++;
+			if (!flag) {
+				N = String.valueOf(Integer.parseInt(N) - 1);
+			}
+			ans++;
 		}
+		System.out.println(ans);
 	}
+
 }
