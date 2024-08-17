@@ -76,6 +76,7 @@
 |31800. Best Chance|[링크](./%EB%B0%B1%EC%A4%80/Bronze/31800.%E2%80%85Best%E2%80%85Chance/Best%E2%80%85Chance.java)|
 |5554. 심부름 가는 길|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5554.%E2%80%85%EC%8B%AC%EB%B6%80%EB%A6%84%E2%80%85%EA%B0%80%EB%8A%94%E2%80%85%EA%B8%B8/%EC%8B%AC%EB%B6%80%EB%A6%84%E2%80%85%EA%B0%80%EB%8A%94%E2%80%85%EA%B8%B8.java)|
 |6749. Next in line|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6749.%E2%80%85Next%E2%80%85in%E2%80%85line/README.md)|
+|9946. 단어 퍼즐|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9946.%E2%80%85%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90/%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90.java)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
 | ----- | ----- |
