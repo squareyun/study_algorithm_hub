@@ -4,44 +4,40 @@ import java.io.*;
 public class Main {
 
 	static int N, K;
-	static int[] bags;
-	static PriorityQueue<Jewelry> jewelries;
-	static PriorityQueue<Integer> pq;
-	static long answer;
+	static PriorityQueue<Jewelry> jewelries = new PriorityQueue<>();
+	static int[] C;
 
 	public static void main(String[] args) throws IOException {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		// BufferedReader br = new BufferedReader(new StringReader(input));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
-
-		jewelries = new PriorityQueue<>();
+		C = new int[K];
+		int m, v;
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
-			int m = Integer.parseInt(st.nextToken());
-			int v = Integer.parseInt(st.nextToken());
-			jewelries.offer(new Jewelry(m, v));
+			m = Integer.parseInt(st.nextToken());
+			v = Integer.parseInt(st.nextToken());
+			jewelries.add(new Jewelry(m, v));
 		}
-
-		bags = new int[K];
 		for (int i = 0; i < K; i++) {
-			bags[i] = Integer.parseInt(br.readLine());
+			C[i] = Integer.parseInt(br.readLine());
 		}
-		Arrays.sort(bags);
+		Arrays.sort(C);
 
-		pq = new PriorityQueue<>(Comparator.reverseOrder());
+		long ans = 0;
+		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 		for (int i = 0; i < K; i++) {
-			while (!jewelries.isEmpty() && jewelries.peek().m <= bags[i]) {
+			while (!jewelries.isEmpty() && jewelries.peek().m <= C[i]) {
 				pq.offer(jewelries.poll().v);
 			}
 
 			if (!pq.isEmpty()) {
-				answer += pq.poll();
+				ans += pq.poll();
 			}
 		}
-		System.out.println(answer);
+		System.out.println(ans);
 	}
 
 	static class Jewelry implements Comparable<Jewelry> {
@@ -57,11 +53,4 @@ public class Main {
 			return Integer.compare(this.m, o.m);
 		}
 	}
-
-	static String input = "3 2\n"
-		+ "1 65\n"
-		+ "5 23\n"
-		+ "2 99\n"
-		+ "10\n"
-		+ "2";
 }
