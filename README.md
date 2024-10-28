@@ -108,6 +108,7 @@
 |4732. 조옮김|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4732.%E2%80%85%EC%A1%B0%EC%98%AE%EA%B9%80/README.md)|
 |4999. 아！|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4999.%E2%80%85%EC%95%84%EF%BC%81/README.md)|
 |5357. Dedupe|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5357.%E2%80%85Dedupe/Dedupe.java)|
+|5358. Football Team|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5358.%E2%80%85Football%E2%80%85Team/Football%E2%80%85Team.java)|
 |5522. 카드 게임|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5522.%E2%80%85%EC%B9%B4%EB%93%9C%E2%80%85%EA%B2%8C%EC%9E%84/README.md)|
 |5543. 상근날드|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5543.%E2%80%85%EC%83%81%EA%B7%BC%EB%82%A0%EB%93%9C/%EC%83%81%EA%B7%BC%EB%82%A0%EB%93%9C.java)|
 |5554. 심부름 가는 길|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5554.%E2%80%85%EC%8B%AC%EB%B6%80%EB%A6%84%E2%80%85%EA%B0%80%EB%8A%94%E2%80%85%EA%B8%B8/README.md)|
