@@ -116,6 +116,7 @@
 |5596. 시험 점수|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5596.%E2%80%85%EC%8B%9C%ED%97%98%E2%80%85%EC%A0%90%EC%88%98/%EC%8B%9C%ED%97%98%E2%80%85%EC%A0%90%EC%88%98.java)|
 |6749. Next in line|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6749.%E2%80%85Next%E2%80%85in%E2%80%85line/Next%E2%80%85in%E2%80%85line.java)|
 |9086. 문자열|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9086.%E2%80%85%EB%AC%B8%EC%9E%90%EC%97%B4/%EB%AC%B8%EC%9E%90%EC%97%B4.java)|
+|9316. Hello Judge|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9316.%E2%80%85Hello%E2%80%85Judge/README.md)|
 |9946. 단어 퍼즐|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9946.%E2%80%85%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90/%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90.java)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
