@@ -122,6 +122,7 @@
 |4470. 줄번호|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4470.%E2%80%85%EC%A4%84%EB%B2%88%ED%98%B8/README.md)|
 |4732. 조옮김|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4732.%E2%80%85%EC%A1%B0%EC%98%AE%EA%B9%80/README.md)|
 |4999. 아！|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4999.%E2%80%85%EC%95%84%EF%BC%81/README.md)|
+|5026. 박사 과정|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5026.%E2%80%85%EB%B0%95%EC%82%AC%E2%80%85%EA%B3%BC%EC%A0%95/README.md)|
 |5357. Dedupe|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5357.%E2%80%85Dedupe/Dedupe.java)|
 |5358. Football Team|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5358.%E2%80%85Football%E2%80%85Team/Football%E2%80%85Team.java)|
 |5522. 카드 게임|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5522.%E2%80%85%EC%B9%B4%EB%93%9C%E2%80%85%EA%B2%8C%EC%9E%84/README.md)|
