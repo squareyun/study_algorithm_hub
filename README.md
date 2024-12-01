@@ -133,6 +133,7 @@
 |4153. 직각삼각형|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4153.%E2%80%85%EC%A7%81%EA%B0%81%EC%82%BC%EA%B0%81%ED%98%95/README.md)|
 |4470. 줄번호|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4470.%E2%80%85%EC%A4%84%EB%B2%88%ED%98%B8/README.md)|
 |4562. No Brainer|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4562.%E2%80%85No%E2%80%85Brainer/No%E2%80%85Brainer.java)|
+|4589. Gnome Sequencing|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4589.%E2%80%85Gnome%E2%80%85Sequencing/README.md)|
 |4732. 조옮김|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4732.%E2%80%85%EC%A1%B0%EC%98%AE%EA%B9%80/README.md)|
 |4999. 아！|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4999.%E2%80%85%EC%95%84%EF%BC%81/README.md)|
 |5026. 박사 과정|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5026.%E2%80%85%EB%B0%95%EC%82%AC%E2%80%85%EA%B3%BC%EC%A0%95/README.md)|
