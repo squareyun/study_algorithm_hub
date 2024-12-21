@@ -162,6 +162,7 @@
 |6749. Next in line|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6749.%E2%80%85Next%E2%80%85in%E2%80%85line/Next%E2%80%85in%E2%80%85line.java)|
 |7600. 문자가 몇갤까|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7600.%E2%80%85%EB%AC%B8%EC%9E%90%EA%B0%80%E2%80%85%EB%AA%87%EA%B0%A4%EA%B9%8C/%EB%AC%B8%EC%9E%90%EA%B0%80%E2%80%85%EB%AA%87%EA%B0%A4%EA%B9%8C.java)|
 |9086. 문자열|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9086.%E2%80%85%EB%AC%B8%EC%9E%90%EC%97%B4/%EB%AC%B8%EC%9E%90%EC%97%B4.java)|
+|9295. 주사위|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9295.%E2%80%85%EC%A3%BC%EC%82%AC%EC%9C%84/%EC%A3%BC%EC%82%AC%EC%9C%84.java)|
 |9316. Hello Judge|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9316.%E2%80%85Hello%E2%80%85Judge/README.md)|
 |9946. 단어 퍼즐|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9946.%E2%80%85%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90/%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90.java)|
 ### 🚀 Gold
