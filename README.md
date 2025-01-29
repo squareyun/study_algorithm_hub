@@ -198,6 +198,7 @@
 |9086. 문자열|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9086.%E2%80%85%EB%AC%B8%EC%9E%90%EC%97%B4/%EB%AC%B8%EC%9E%90%EC%97%B4.java)|
 |9295. 주사위|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9295.%E2%80%85%EC%A3%BC%EC%82%AC%EC%9C%84/%EC%A3%BC%EC%82%AC%EC%9C%84.java)|
 |9316. Hello Judge|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9316.%E2%80%85Hello%E2%80%85Judge/Hello%E2%80%85Judge.java)|
+|9699. RICE SACK|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9699.%E2%80%85RICE%E2%80%85SACK/RICE%E2%80%85SACK.java)|
 |9946. 단어 퍼즐|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9946.%E2%80%85%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90/%EB%8B%A8%EC%96%B4%E2%80%85%ED%8D%BC%EC%A6%90.java)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
