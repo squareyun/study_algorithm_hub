@@ -224,6 +224,7 @@
 |5717. 상근이의 친구들|[링크](./%EB%B0%B1%EC%A4%80/Bronze/5717.%E2%80%85%EC%83%81%EA%B7%BC%EC%9D%B4%EC%9D%98%E2%80%85%EC%B9%9C%EA%B5%AC%EB%93%A4/%EC%83%81%EA%B7%BC%EC%9D%B4%EC%9D%98%E2%80%85%EC%B9%9C%EA%B5%AC%EB%93%A4.java)|
 |6749. Next in line|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6749.%E2%80%85Next%E2%80%85in%E2%80%85line/README.md)|
 |6778. Which Alien？|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6778.%E2%80%85Which%E2%80%85Alien%EF%BC%9F/README.md)|
+|6840. Who is in the middle？|[링크](./%EB%B0%B1%EC%A4%80/Bronze/6840.%E2%80%85Who%E2%80%85is%E2%80%85in%E2%80%85the%E2%80%85middle%EF%BC%9F/README.md)|
 |7567. 그릇|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7567.%E2%80%85%EA%B7%B8%EB%A6%87/%EA%B7%B8%EB%A6%87.java)|
 |7595. Triangles|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7595.%E2%80%85Triangles/README.md)|
 |7600. 문자가 몇갤까|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7600.%E2%80%85%EB%AC%B8%EC%9E%90%EA%B0%80%E2%80%85%EB%AA%87%EA%B0%A4%EA%B9%8C/README.md)|
