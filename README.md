@@ -236,6 +236,7 @@
 |7567. 그릇|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7567.%E2%80%85%EA%B7%B8%EB%A6%87/%EA%B7%B8%EB%A6%87.java)|
 |7595. Triangles|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7595.%E2%80%85Triangles/README.md)|
 |7600. 문자가 몇갤까|[링크](./%EB%B0%B1%EC%A4%80/Bronze/7600.%E2%80%85%EB%AC%B8%EC%9E%90%EA%B0%80%E2%80%85%EB%AA%87%EA%B0%A4%EA%B9%8C/README.md)|
+|8370. Plane|[링크](./%EB%B0%B1%EC%A4%80/Bronze/8370.%E2%80%85Plane/README.md)|
 |9086. 문자열|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9086.%E2%80%85%EB%AC%B8%EC%9E%90%EC%97%B4/%EB%AC%B8%EC%9E%90%EC%97%B4.java)|
 |9295. 주사위|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9295.%E2%80%85%EC%A3%BC%EC%82%AC%EC%9C%84/README.md)|
 |9316. Hello Judge|[링크](./%EB%B0%B1%EC%A4%80/Bronze/9316.%E2%80%85Hello%E2%80%85Judge/Hello%E2%80%85Judge.java)|
