@@ -204,6 +204,7 @@
 |32710. 구구단표|[링크](./%EB%B0%B1%EC%A4%80/Bronze/32710.%E2%80%85%EA%B5%AC%EA%B5%AC%EB%8B%A8%ED%91%9C/README.md)|
 |32951. AI 선도대학|[링크](./%EB%B0%B1%EC%A4%80/Bronze/32951.%E2%80%85AI%E2%80%85%EC%84%A0%EB%8F%84%EB%8C%80%ED%95%99/README.md)|
 |3733. Shares|[링크](./%EB%B0%B1%EC%A4%80/Bronze/3733.%E2%80%85Shares/Shares.java)|
+|3765. Celebrity jeopardy|[링크](./%EB%B0%B1%EC%A4%80/Bronze/3765.%E2%80%85Celebrity%E2%80%85jeopardy/Celebrity%E2%80%85jeopardy.java)|
 |4101. 크냐？|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4101.%E2%80%85%ED%81%AC%EB%83%90%EF%BC%9F/README.md)|
 |4150. 피보나치 수|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4150.%E2%80%85%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98%E2%80%85%EC%88%98/README.md)|
 |4153. 직각삼각형|[링크](./%EB%B0%B1%EC%A4%80/Bronze/4153.%E2%80%85%EC%A7%81%EA%B0%81%EC%82%BC%EA%B0%81%ED%98%95/README.md)|
